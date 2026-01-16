@@ -1,0 +1,63 @@
+{
+    "scheme": "zoommtg",
+    "name": "Zoom",
+    "description": "Join Zoom meetings, start instant meetings, and open Zoom client features.",
+    "platforms": [
+        "windows",
+        "macos",
+        "linux",
+        "ios",
+        "android"
+    ],
+    "syntax": "zoommtg://[action]?[parameters]",
+    "commands": [
+        {
+            "command": "join",
+            "description": "Join a Zoom meeting by meeting ID",
+            "parameters": [
+                {
+                    "name": "confno",
+                    "type": "number",
+                    "required": true,
+                    "description": "Meeting ID (9, 10, or 11 digits)",
+                    "example": "1234567890"
+                },
+                {
+                    "name": "pwd",
+                    "type": "string",
+                    "required": false,
+                    "description": "Meeting password (encrypted)",
+                    "example": "abc123"
+                },
+                {
+                    "name": "uname",
+                    "type": "string",
+                    "required": false,
+                    "description": "Display name for the participant",
+                    "example": "John%20Doe"
+                }
+            ],
+            "example": "zoommtg://zoom.us/join?confno=1234567890&pwd=abc123&uname=John%20Doe"
+        },
+        {
+            "command": "start",
+            "description": "Start an instant meeting (requires host permissions)",
+            "parameters": [
+                {
+                    "name": "confno",
+                    "type": "number",
+                    "required": false,
+                    "description": "Personal Meeting ID (PMI)",
+                    "example": "9876543210"
+                }
+            ],
+            "example": "zoommtg://zoom.us/start?confno=9876543210"
+        }
+    ],
+    "metadata": {
+        "lastVerified": "2026-01",
+        "contributors": [
+            "Schemata Team"
+        ]
+    }
+}

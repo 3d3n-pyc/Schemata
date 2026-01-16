@@ -1,0 +1,76 @@
+{
+    "scheme": "steam",
+    "name": "Steam",
+    "description": "Launch Steam games, open the store, view user profiles, and navigate the Steam client.",
+    "platforms": [
+        "windows",
+        "macos",
+        "linux"
+    ],
+    "syntax": "steam://[command]/[parameters]",
+    "commands": [
+        {
+            "command": "run/[appid]",
+            "description": "Launch a Steam game by its Application ID",
+            "parameters": [
+                {
+                    "name": "appid",
+                    "type": "number",
+                    "required": true,
+                    "description": "Unique Steam Application ID",
+                    "example": "730"
+                }
+            ],
+            "example": "steam://run/730",
+            "notes": "Game must be installed. AppID 730 is Counter-Strike 2"
+        },
+        {
+            "command": "store/[appid]",
+            "description": "Open the Steam store page for a specific game or app",
+            "parameters": [
+                {
+                    "name": "appid",
+                    "type": "number",
+                    "required": true,
+                    "description": "Steam Application ID",
+                    "example": "1091500"
+                }
+            ],
+            "example": "steam://store/1091500"
+        },
+        {
+            "command": "url/CommunityFilePage/[fileId]",
+            "description": "Open a Steam Workshop item or Community file",
+            "parameters": [
+                {
+                    "name": "fileId",
+                    "type": "number",
+                    "required": true,
+                    "description": "Steam Workshop file ID",
+                    "example": "123456789"
+                }
+            ],
+            "example": "steam://url/CommunityFilePage/123456789"
+        },
+        {
+            "command": "friends/add/[steamid]",
+            "description": "Open dialog to add a friend by Steam ID",
+            "parameters": [
+                {
+                    "name": "steamid",
+                    "type": "number",
+                    "required": true,
+                    "description": "64-bit Steam ID of the user",
+                    "example": "76561198012345678"
+                }
+            ],
+            "example": "steam://friends/add/76561198012345678"
+        }
+    ],
+    "metadata": {
+        "lastVerified": "2026-01",
+        "contributors": [
+            "Schemata Team"
+        ]
+    }
+}

@@ -1,0 +1,118 @@
+{
+  "scheme": "roblox",
+  "name": "Roblox",
+  "description": "Deep linking protocol for the Roblox gaming platform. Allows direct navigation to experiences, user profiles, groups, and more.",
+  "platforms": [
+    "windows",
+    "macos",
+    "ios",
+    "android"
+  ],
+  "syntax": "roblox://[command]/[id]?[parameters]",
+  "commands": [
+    {
+      "command": "experiences/start",
+      "description": "Launch a specific Roblox experience (game) by its Place ID",
+      "parameters": [
+        {
+          "name": "placeId",
+          "type": "number",
+          "required": true,
+          "description": "Unique identifier for the Roblox place/experience",
+          "example": "606849621"
+        },
+        {
+          "name": "gameInstanceId",
+          "type": "string",
+          "required": false,
+          "description": "Specific server instance to join (allows joining friends)",
+          "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+        },
+        {
+          "name": "privateServerLinkCode",
+          "type": "string",
+          "required": false,
+          "description": "Access code for joining a private VIP server",
+          "example": "12345678901234567890123456789012"
+        }
+      ],
+      "example": "roblox://experiences/start?placeId=606849621&gameInstanceId=a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+    },
+    {
+      "command": "users/[userId]/profile",
+      "description": "Open a user's profile page within the Roblox app",
+      "parameters": [
+        {
+          "name": "userId",
+          "type": "number",
+          "required": true,
+          "description": "Unique Roblox user ID",
+          "example": "156"
+        }
+      ],
+      "example": "roblox://users/156/profile"
+    },
+    {
+      "command": "groups/[groupId]",
+      "description": "Navigate to a specific Roblox group page",
+      "parameters": [
+        {
+          "name": "groupId",
+          "type": "number",
+          "required": true,
+          "description": "Unique identifier for the Roblox group",
+          "example": "1200769"
+        }
+      ],
+      "example": "roblox://groups/1200769",
+      "notes": "Group must be publicly accessible"
+    },
+    {
+      "command": "catalog/[itemId]",
+      "description": "Display a specific catalog item (clothing, accessories, etc.)",
+      "parameters": [
+        {
+          "name": "itemId",
+          "type": "number",
+          "required": true,
+          "description": "Unique catalog asset ID",
+          "example": "1028594"
+        },
+        {
+          "name": "itemType",
+          "type": "enum",
+          "required": false,
+          "description": "Type of catalog item",
+          "values": [
+            "Asset",
+            "Bundle",
+            "GamePass",
+            "Badge"
+          ],
+          "default": "Asset"
+        }
+      ],
+      "example": "roblox://catalog/1028594?itemType=Asset"
+    },
+    {
+      "command": "library/[assetId]",
+      "description": "View a library asset (models, audio, decals created by users)",
+      "parameters": [
+        {
+          "name": "assetId",
+          "type": "number",
+          "required": true,
+          "description": "Unique asset ID from the Roblox library",
+          "example": "123456789"
+        }
+      ],
+      "example": "roblox://library/123456789"
+    }
+  ],
+  "metadata": {
+    "lastVerified": "2026-01",
+    "contributors": [
+      "Schemata Team"
+    ]
+  }
+}

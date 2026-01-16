@@ -1,0 +1,307 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { AlertCircle, CheckCircle, XCircle, ExternalLink } from "@lucide/astro";
+---
+
+<Layout title="Testing Protocols">
+    <!-- Back Button -->
+    <div class="mb-6">
+        <a
+            href="/"
+            class="inline-flex items-center gap-2 text-sm text-text-secondary hover:text-accent transition-colors group"
+        >
+            <svg
+                class="w-4 h-4 group-hover:-translate-x-1 transition-transform"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+            >
+                <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M15 19l-7-7 7-7"></path>
+            </svg>
+            <span>Back to protocols</span>
+        </a>
+    </div>
+
+    <!-- Header -->
+    <header class="mb-12">
+        <h1 class="text-4xl font-bold text-text-primary mb-4">
+            Testing URI Protocols
+        </h1>
+        <p class="text-lg text-text-secondary">
+            Learn how to test deep links directly from Schemata and understand
+            what happens when you click "Test".
+        </p>
+    </header>
+
+    <!-- How It Works -->
+    <section class="space-y-6 mb-12">
+        <h2
+            class="text-2xl font-bold text-text-primary border-b border-bg-subtle pb-2"
+        >
+            How Protocol Testing Works
+        </h2>
+
+        <div
+            class="bg-bg-elevated border border-bg-subtle rounded-lg p-6 space-y-4"
+        >
+            <div class="flex items-start gap-3">
+                <div class="flex-shrink-0 mt-1">
+                    <CheckCircle size={20} class="text-accent" />
+                </div>
+                <div>
+                    <h3 class="font-semibold text-text-primary mb-2">
+                        1. Click the "Test" Button
+                    </h3>
+                    <p class="text-text-secondary text-sm">
+                        Each command example has a "Test" button. Clicking it
+                        attempts to open the protocol using your system's
+                        default handler.
+                    </p>
+                </div>
+            </div>
+
+            <div class="flex items-start gap-3">
+                <div class="flex-shrink-0 mt-1">
+                    <AlertCircle size={20} class="text-yellow-400" />
+                </div>
+                <div>
+                    <h3 class="font-semibold text-text-primary mb-2">
+                        2. Browser Security Prompt
+                    </h3>
+                    <p class="text-text-secondary text-sm">
+                        Your browser will ask for permission to open the
+                        external application. This is a security feature to
+                        prevent malicious sites from launching apps without your
+                        consent.
+                    </p>
+                </div>
+            </div>
+
+            <div class="flex items-start gap-3">
+                <div class="flex-shrink-0 mt-1">
+                    <ExternalLink size={20} class="text-accent" />
+                </div>
+                <div>
+                    <h3 class="font-semibold text-text-primary mb-2">
+                        3. System Handler Opens
+                    </h3>
+                    <p class="text-text-secondary text-sm">
+                        If the application is installed on your system, it will
+                        launch with the specified parameters. For example, <code
+                            class="font-mono text-accent text-xs"
+                            >steam://run/730</code
+                        > will launch Counter-Strike 2 if you have Steam installed.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Common Scenarios -->
+    <section class="space-y-6 mb-12">
+        <h2
+            class="text-2xl font-bold text-text-primary border-b border-bg-subtle pb-2"
+        >
+            Common Testing Scenarios
+        </h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- Success Case -->
+            <div class="bg-bg-elevated border border-accent/30 rounded-lg p-6">
+                <div class="flex items-center gap-2 mb-3">
+                    <CheckCircle size={20} class="text-accent" />
+                    <h3 class="font-semibold text-accent">Protocol Works</h3>
+                </div>
+                <p class="text-text-secondary text-sm mb-3">
+                    The application launches successfully with the correct
+                    parameters.
+                </p>
+                <div
+                    class="bg-bg-primary border border-bg-subtle rounded p-3 text-xs font-mono"
+                >
+                    <span class="text-text-tertiary">Example:</span><br />
+                    <span class="text-accent"
+                        >spotify:track:3n3Ppam7vgaVa1iaRUc9Lp</span
+                    ><br />
+                    <span class="text-green-400"
+                        >→ Spotify opens and plays the track</span
+                    >
+                </div>
+            </div>
+
+            <!-- App Not Installed -->
+            <div
+                class="bg-bg-elevated border border-yellow-400/30 rounded-lg p-6"
+            >
+                <div class="flex items-center gap-2 mb-3">
+                    <AlertCircle size={20} class="text-yellow-400" />
+                    <h3 class="font-semibold text-yellow-400">
+                        App Not Installed
+                    </h3>
+                </div>
+                <p class="text-text-secondary text-sm mb-3">
+                    The browser shows an error or does nothing because the
+                    application isn't installed.
+                </p>
+                <div
+                    class="bg-bg-primary border border-bg-subtle rounded p-3 text-xs font-mono"
+                >
+                    <span class="text-text-tertiary">Example:</span><br />
+                    <span class="text-accent"
+                        >roblox://experiences/start?placeId=123</span
+                    ><br />
+                    <span class="text-yellow-400"
+                        >→ Browser: "No app to handle roblox://"</span
+                    >
+                </div>
+            </div>
+
+            <!-- Platform Not Supported -->
+            <div class="bg-bg-elevated border border-bg-subtle rounded-lg p-6">
+                <div class="flex items-center gap-2 mb-3">
+                    <XCircle size={20} class="text-text-tertiary" />
+                    <h3 class="font-semibold text-text-primary">
+                        Platform Mismatch
+                    </h3>
+                </div>
+                <p class="text-text-secondary text-sm mb-3">
+                    The protocol might not be supported on your current platform
+                    (e.g., testing an iOS-only protocol on Windows).
+                </p>
+                <div
+                    class="bg-bg-primary border border-bg-subtle rounded p-3 text-xs font-mono"
+                >
+                    <span class="text-text-tertiary"
+                        >Check platform badges:</span
+                    ><br />
+                    <span class="text-accent">🪟 Windows 🍎 macOS 🐧 Linux</span
+                    ><br />
+                    <span class="text-accent">📱 iOS 🤖 Android</span>
+                </div>
+            </div>
+
+            <!-- Browser Blocked -->
+            <div class="bg-bg-elevated border border-bg-subtle rounded-lg p-6">
+                <div class="flex items-center gap-2 mb-3">
+                    <AlertCircle size={20} class="text-text-secondary" />
+                    <h3 class="font-semibold text-text-primary">
+                        Browser Security
+                    </h3>
+                </div>
+                <p class="text-text-secondary text-sm mb-3">
+                    Some browsers require explicit permission to launch external
+                    protocols. Check your browser settings if protocols never
+                    open.
+                </p>
+                <div
+                    class="bg-bg-primary border border-bg-subtle rounded p-3 text-xs"
+                >
+                    <span class="text-text-tertiary">Tip:</span> Look for permission
+                    prompts at the top of the browser window.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Safety Notes -->
+    <section class="space-y-6">
+        <h2
+            class="text-2xl font-bold text-text-primary border-b border-bg-subtle pb-2"
+        >
+            Safety & Best Practices
+        </h2>
+
+        <div class="space-y-4">
+            <div class="bg-accent/5 border border-accent/20 rounded-lg p-6">
+                <div class="flex items-start gap-3">
+                    <div class="flex-shrink-0 mt-1">
+                        <AlertCircle size={20} class="text-accent" />
+                    </div>
+                    <div class="space-y-2">
+                        <h3 class="font-semibold text-accent">
+                            Test Protocols Safely
+                        </h3>
+                        <ul
+                            class="space-y-2 text-text-secondary text-sm list-disc list-inside"
+                        >
+                            <li>
+                                All examples in Schemata use safe, publicly
+                                documented parameters
+                            </li>
+                            <li>
+                                Testing will only launch applications you
+                                already have installed
+                            </li>
+                            <li>
+                                Your browser will always ask for permission
+                                before launching external apps
+                            </li>
+                            <li>
+                                If unsure, copy the URI first and inspect it
+                                before testing
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-bg-elevated border border-bg-subtle rounded-lg p-6">
+                <h3 class="font-semibold text-text-primary mb-3">
+                    Debugging Failed Tests
+                </h3>
+                <ol
+                    class="space-y-2 text-text-secondary text-sm list-decimal list-inside"
+                >
+                    <li>Verify the application is installed on your system</li>
+                    <li>
+                        Check if the protocol is supported on your platform (see
+                        badges)
+                    </li>
+                    <li>
+                        Ensure your browser allows external protocol handlers
+                    </li>
+                    <li>
+                        Try copying the URI and pasting it directly in your
+                        browser's address bar
+                    </li>
+                    <li>
+                        Check the application's documentation for any required
+                        setup
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="mt-16 py-12 border-t border-bg-subtle text-center">
+        <h3 class="text-2xl font-bold text-text-primary mb-4">
+            Ready to Test?
+        </h3>
+        <p class="text-text-secondary mb-6">
+            Head back to the protocols list and try testing some deep links!
+        </p>
+        <a
+            href="/"
+            class="inline-flex items-center gap-2 px-6 py-3 bg-accent hover:bg-accent-hover text-bg-primary font-semibold rounded-lg transition-colors shadow-glow-sm hover:shadow-glow"
+        >
+            <span>Browse Protocols</span>
+            <svg
+                class="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+            >
+                <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 5l7 7-7 7"></path>
+            </svg>
+        </a>
+    </section>
+</Layout>

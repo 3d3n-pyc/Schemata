@@ -1,0 +1,151 @@
+---
+import type { Protocol } from "../types/protocol";
+import SimpleIcon from "./SimpleIcon.astro";
+
+import {
+    siRoblox,
+    siSteam,
+    siZoom,
+    siSpotify,
+    siDiscord,
+    siApple,
+    siLinux,
+    siAndroid,
+} from "simple-icons";
+
+interface Props {
+    protocol: Protocol;
+}
+
+const { protocol } = Astro.props;
+
+const brandLogos: Record<string, { path: string; hex: string }> = {
+    roblox: { path: siRoblox.path, hex: siRoblox.hex },
+    steam: { path: siSteam.path, hex: siSteam.hex },
+    zoommtg: { path: siZoom.path, hex: siZoom.hex },
+    spotify: { path: siSpotify.path, hex: siSpotify.hex },
+    discord: { path: siDiscord.path, hex: siDiscord.hex },
+};
+
+const platformIcons: Record<string, { path: string; hex: string } | null> = {
+    windows: null,
+    macos: { path: siApple.path, hex: siApple.hex },
+    linux: { path: siLinux.path, hex: siLinux.hex },
+    ios: { path: siApple.path, hex: siApple.hex },
+    android: { path: siAndroid.path, hex: siAndroid.hex },
+};
+
+const platformNames: Record<string, string> = {
+    windows: "Windows",
+    macos: "macOS",
+    linux: "Linux",
+    ios: "iOS",
+    android: "Android",
+};
+
+const brandLogo = brandLogos[protocol.scheme];
+---
+
+<a
+    href={`/protocol/${protocol.scheme}`}
+    class="group block bg-bg-elevated border border-bg-subtle hover:border-accent/50 rounded-lg overflow-hidden transition-all duration-200 hover:shadow-glow-sm"
+>
+    <div class="p-6 space-y-4">
+        <div class="flex items-center gap-3">
+            {
+                brandLogo && (
+                    <div class="flex-shrink-0">
+                        <SimpleIcon
+                            iconPath={brandLogo.path}
+                            title={protocol.name}
+                            size={32}
+                            class="text-accent group-hover:drop-shadow-glow transition-all"
+                        />
+                    </div>
+                )
+            }
+            <div class="flex-1 min-w-0">
+                <code
+                    class="font-mono text-accent text-base font-semibold block truncate"
+                >
+                    {protocol.scheme}://
+                </code>
+                <span class="text-xs text-text-tertiary">
+                    {protocol.commands.length} command{
+                        protocol.commands.length !== 1 ? "s" : ""
+                    }
+                </span>
+            </div>
+        </div>
+
+        <div>
+            <h3
+                class="text-xl font-bold text-text-primary mb-1 group-hover:text-accent transition-colors"
+            >
+                {protocol.name}
+            </h3>
+            <p class="text-sm text-text-secondary line-clamp-2 leading-relaxed">
+                {protocol.description}
+            </p>
+        </div>
+
+        <div class="flex items-center gap-2.5 pt-1">
+            {
+                protocol.platforms.map((platform) => {
+                    const icon = platformIcons[platform];
+
+                    if (platform === "windows") {
+                        return (
+                            <div
+                                class="flex items-center gap-1.5"
+                                title={platformNames[platform]}
+                            >
+                                <svg
+                                    width="14"
+                                    height="14"
+                                    viewBox="0 0 24 24"
+                                    fill="currentColor"
+                                    class="text-text-tertiary group-hover:text-accent transition-colors opacity-70 group-hover:opacity-100"
+                                >
+                                    <path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801" />
+                                </svg>
+                            </div>
+                        );
+                    }
+
+                    return icon ? (
+                        <div
+                            class="flex items-center gap-1.5"
+                            title={platformNames[platform]}
+                        >
+                            <SimpleIcon
+                                iconPath={icon.path}
+                                title={platformNames[platform]}
+                                size={14}
+                                class="text-text-tertiary group-hover:text-accent transition-colors opacity-70 group-hover:opacity-100"
+                            />
+                        </div>
+                    ) : null;
+                })
+            }
+        </div>
+    </div>
+
+    <div
+        class="px-6 py-3 bg-bg-primary border-t border-bg-subtle flex items-center justify-between"
+    >
+        <span class="text-xs text-text-tertiary">View details</span>
+        <svg
+            class="w-4 h-4 text-accent opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+        >
+            <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 5l7 7-7 7"></path>
+        </svg>
+    </div>
+</a>

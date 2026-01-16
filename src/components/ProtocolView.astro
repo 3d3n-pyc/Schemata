@@ -1,0 +1,281 @@
+---
+import type { Protocol } from "../types/protocol";
+
+interface Props {
+  protocol: Protocol;
+}
+
+const { protocol } = Astro.props;
+
+const formatType = (type: string) => {
+  const colors: Record<string, string> = {
+    string: "text-blue-400",
+    number: "text-green-400",
+    boolean: "text-purple-400",
+    url: "text-cyan-400",
+    enum: "text-yellow-400",
+  };
+  return colors[type] || "text-text-secondary";
+};
+---
+
+<article class="space-y-8">
+  <header class="space-y-4">
+    <div
+      class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4"
+    >
+      <div>
+        <h1 class="text-4xl font-bold text-text-primary mb-2">
+          {protocol.name}
+        </h1>
+        <p class="text-lg text-text-secondary">
+          {protocol.description}
+        </p>
+      </div>
+
+      <div class="flex flex-wrap gap-2">
+        {
+          protocol.platforms.map((platform) => (
+            <span class="px-3 py-1 bg-bg-elevated border border-bg-subtle rounded-md text-xs font-medium text-text-secondary uppercase tracking-wider">
+              {platform}
+            </span>
+          ))
+        }
+      </div>
+    </div>
+
+    <div
+      class="bg-bg-elevated border border-bg-subtle rounded-lg p-4 group relative"
+    >
+      <div class="flex items-start justify-between gap-4">
+        <div class="flex-1">
+          <p
+            class="text-xs font-medium text-text-tertiary uppercase tracking-wider mb-2"
+          >
+            Base Syntax
+          </p>
+          <code class="font-mono text-accent text-sm sm:text-base break-all">
+            {protocol.syntax}
+          </code>
+        </div>
+        <div
+          class="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity"
+        >
+          <button
+            class="px-3 py-1.5 bg-bg-subtle hover:bg-accent/10 border border-accent/30 hover:border-accent rounded text-xs font-medium text-accent"
+            onclick={`navigator.clipboard.writeText('${protocol.syntax}')`}
+          >
+            Copy
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="space-y-6">
+    <h2
+      class="text-2xl font-bold text-text-primary border-b border-bg-subtle pb-2"
+    >
+      Commands
+    </h2>
+
+    {
+      protocol.commands.map((command, index) => (
+        <div class="bg-bg-elevated border border-bg-subtle rounded-lg overflow-hidden">
+          <div class="px-4 sm:px-6 py-4 border-b border-bg-subtle">
+            <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+              <div class="flex-1">
+                <h3 class="font-mono text-accent text-sm sm:text-base font-semibold mb-1 break-all">
+                  {command.command}
+                </h3>
+                <p class="text-sm text-text-secondary">{command.description}</p>
+              </div>
+              <div class="flex items-center gap-2">
+                <button
+                  class="px-3 py-1.5 bg-bg-subtle hover:bg-accent/10 border border-accent/30 hover:border-accent rounded text-xs font-medium text-accent transition-colors"
+                  onclick={`navigator.clipboard.writeText('${command.example}')`}
+                  title="Copy example to clipboard"
+                >
+                  Copy
+                </button>
+                <a
+                  href={command.example}
+                  class="px-3 py-1.5 bg-accent/10 hover:bg-accent/20 border border-accent hover:border-accent rounded text-xs font-medium text-accent transition-colors"
+                  title="Test this protocol (opens in your system)"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Test
+                </a>
+              </div>
+            </div>
+
+            {command.notes && (
+              <div class="mt-3 px-3 py-2 bg-accent/5 border border-accent/20 rounded text-xs text-text-secondary">
+                <span class="font-medium text-accent">Note:</span>{" "}
+                {command.notes}
+              </div>
+            )}
+          </div>
+
+          {command.parameters.length > 0 && (
+            <div class="p-4 sm:p-6">
+              <h4 class="text-sm font-semibold text-text-secondary uppercase tracking-wider mb-3">
+                Parameters
+              </h4>
+
+              <div class="hidden lg:block overflow-x-auto">
+                <table class="w-full text-sm">
+                  <thead>
+                    <tr class="border-b border-bg-subtle">
+                      <th class="text-left font-medium text-text-tertiary pb-3 pr-4">
+                        Name
+                      </th>
+                      <th class="text-left font-medium text-text-tertiary pb-3 pr-4">
+                        Type
+                      </th>
+                      <th class="text-left font-medium text-text-tertiary pb-3 pr-4">
+                        Required
+                      </th>
+                      <th class="text-left font-medium text-text-tertiary pb-3 pr-4">
+                        Description
+                      </th>
+                      <th class="text-left font-medium text-text-tertiary pb-3">
+                        Example
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-bg-subtle">
+                    {command.parameters.map((param) => (
+                      <tr class="hover:bg-bg-subtle/50 transition-colors">
+                        <td class="py-3 pr-4">
+                          <code class="font-mono text-accent text-xs">
+                            {param.name}
+                          </code>
+                        </td>
+                        <td class="py-3 pr-4">
+                          <span
+                            class={`font-mono text-xs ${formatType(param.type)}`}
+                          >
+                            {param.type}
+                          </span>
+                        </td>
+                        <td class="py-3 pr-4">
+                          {param.required ? (
+                            <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-accent/10 text-accent">
+                              Required
+                            </span>
+                          ) : (
+                            <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-bg-subtle text-text-tertiary">
+                              Optional
+                            </span>
+                          )}
+                        </td>
+                        <td class="py-3 pr-4 text-text-secondary">
+                          {param.description}
+                          {param.values && (
+                            <div class="mt-1 text-xs">
+                              <span class="text-text-tertiary">Values:</span>{" "}
+                              <code class="text-accent font-mono">
+                                {param.values.join(", ")}
+                              </code>
+                            </div>
+                          )}
+                        </td>
+                        <td class="py-3">
+                          {param.example && (
+                            <code class="font-mono text-xs text-text-secondary bg-bg-primary px-2 py-1 rounded break-all">
+                              {param.example}
+                            </code>
+                          )}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="lg:hidden space-y-3">
+                {command.parameters.map((param) => (
+                  <div class="bg-bg-primary border border-bg-subtle rounded-lg p-4 space-y-2">
+                    <div class="flex items-start justify-between gap-2">
+                      <code class="font-mono text-accent text-sm font-semibold break-all">
+                        {param.name}
+                      </code>
+                      <span
+                        class={`font-mono text-xs ${formatType(param.type)} shrink-0`}
+                      >
+                        {param.type}
+                      </span>
+                    </div>
+
+                    <div>
+                      {param.required ? (
+                        <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-accent/10 text-accent">
+                          Required
+                        </span>
+                      ) : (
+                        <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-bg-subtle text-text-tertiary">
+                          Optional
+                        </span>
+                      )}
+                    </div>
+
+                    <p class="text-sm text-text-secondary leading-relaxed">
+                      {param.description}
+                    </p>
+
+                    {param.values && (
+                      <div class="pt-2 border-t border-bg-subtle">
+                        <p class="text-xs text-text-tertiary mb-1">
+                          Possible values:
+                        </p>
+                        <code class="text-accent font-mono text-xs">
+                          {param.values.join(", ")}
+                        </code>
+                      </div>
+                    )}
+
+                    {param.example && (
+                      <div class="pt-2 border-t border-bg-subtle">
+                        <p class="text-xs text-text-tertiary mb-1">Example:</p>
+                        <code class="font-mono text-xs text-text-secondary bg-bg-elevated px-2 py-1 rounded block break-all">
+                          {param.example}
+                        </code>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          <div class="px-4 sm:px-6 py-4 bg-bg-primary border-t border-bg-subtle">
+            <p class="text-xs font-medium text-text-tertiary uppercase tracking-wider mb-2">
+              Full Example
+            </p>
+            <code class="font-mono text-accent text-xs sm:text-sm block break-all">
+              {command.example}
+            </code>
+          </div>
+        </div>
+      ))
+    }
+  </section>
+
+  {
+    protocol.metadata && (
+      <footer class="pt-6 border-t border-bg-subtle text-sm text-text-tertiary">
+        {protocol.metadata.lastVerified && (
+          <p>Last verified: {protocol.metadata.lastVerified}</p>
+        )}
+        {protocol.metadata.contributors &&
+          protocol.metadata.contributors.length > 0 && (
+            <p class="mt-1">
+              Contributors: {protocol.metadata.contributors.join(", ")}
+            </p>
+          )}
+      </footer>
+    )
+  }
+</article>

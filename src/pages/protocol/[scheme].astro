@@ -1,0 +1,52 @@
+---
+/**
+ * Dynamic Protocol Page
+ * Automatically generates pages for each protocol
+ */
+import Layout from "../../layouts/Layout.astro";
+import ProtocolView from "../../components/ProtocolView.astro";
+import { getAllProtocols } from "../../utils/protocols";
+import type { Protocol } from "../../types/protocol";
+
+export async function getStaticPaths() {
+    const protocols = getAllProtocols();
+
+    return protocols.map((protocol) => ({
+        params: { scheme: protocol.scheme },
+        props: { protocol },
+    }));
+}
+
+interface Props {
+    protocol: Protocol;
+}
+
+const { protocol } = Astro.props;
+---
+
+<Layout title={protocol.name}>
+    <!-- Back Button -->
+    <div class="mb-6">
+        <a
+            href="/"
+            class="inline-flex items-center gap-2 text-sm text-text-secondary hover:text-accent transition-colors group"
+        >
+            <svg
+                class="w-4 h-4 group-hover:-translate-x-1 transition-transform"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+            >
+                <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M15 19l-7-7 7-7"></path>
+            </svg>
+            <span>Back to all protocols</span>
+        </a>
+    </div>
+
+    <!-- Protocol Content -->
+    <ProtocolView protocol={protocol} />
+</Layout>

@@ -1,0 +1,62 @@
+@import 'tailwindcss';
+
+/* TailwindCSS v4: Theme Configuration via CSS Variables */
+@theme {
+  /* Color System - Industrial Sci-Fi */
+  --color-bg-primary: #050505;
+  --color-bg-elevated: #111111;
+  --color-bg-subtle: #1a1a1a;
+
+  --color-accent: #00FFCC;
+  --color-accent-hover: #00D4AA;
+  --color-accent-glow: #00FFCC40;
+
+  --color-text-primary: #F5F5F5;
+  --color-text-secondary: #A0A0A0;
+  --color-text-tertiary: #666666;
+
+  /* Typography */
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  /* Custom Shadows */
+  --shadow-glow: 0 0 20px rgba(0, 255, 204, 0.3);
+  --shadow-glow-sm: 0 0 10px rgba(0, 255, 204, 0.2);
+}
+
+/* Global Base Styles */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+  font-feature-settings: "rlig" 1, "calt" 1;
+}
+
+/* Custom scrollbar for dark theme */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--color-bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-bg-subtle);
+  border-radius: 0.25rem;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 255, 204, 0.3);
+}
+
+/* Selection */
+::selection {
+  background-color: rgba(0, 255, 204, 0.3);
+  color: var(--color-text-primary);
+}

@@ -1,0 +1,226 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ProtocolCard from "../components/ProtocolCard.astro";
+import { getAllProtocols } from "../utils/protocols";
+import { Search } from "@lucide/astro";
+
+const protocols = getAllProtocols().sort((a, b) =>
+	a.name.localeCompare(b.name),
+);
+const totalCommands = protocols.reduce((sum, p) => sum + p.commands.length, 0);
+---
+
+<Layout title="Protocol Database">
+	<section class="py-12 space-y-6">
+		<div class="max-w-3xl">
+			<div class="flex items-center gap-2 mb-4">
+				<span class="text-accent font-mono text-2xl">&gt;</span>
+				<h1 class="text-5xl font-bold tracking-tight">Schemata</h1>
+			</div>
+
+			<p class="text-xl text-text-secondary leading-relaxed">
+				The centralized, open-source database for URI Protocols and Deep
+				Links. Stop searching scattered docs—find what you need, fast.
+			</p>
+
+			<div class="flex items-center gap-6 mt-6 text-sm">
+				<div class="flex items-center gap-2">
+					<span class="text-accent font-mono text-2xl font-bold"
+						>{protocols.length}</span
+					>
+					<span class="text-text-tertiary">protocols</span>
+				</div>
+				<div class="h-4 w-px bg-bg-subtle"></div>
+				<div class="flex items-center gap-2">
+					<span class="text-accent font-mono text-2xl font-bold"
+						>{totalCommands}</span
+					>
+					<span class="text-text-tertiary">commands</span>
+				</div>
+				<div class="h-4 w-px bg-bg-subtle"></div>
+				<a
+					href="https://github.com/your-org/schemata"
+					target="_blank"
+					class="text-text-secondary hover:text-accent transition-colors flex items-center gap-1"
+				>
+					<span>Open Source</span>
+					<svg
+						class="w-4 h-4"
+						fill="currentColor"
+						viewBox="0 0 24 24"
+					>
+						<path
+							d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
+						></path>
+					</svg>
+				</a>
+			</div>
+		</div>
+	</section>
+
+	<section class="mb-8">
+		<div class="relative max-w-2xl">
+			<input
+				type="text"
+				id="protocol-search"
+				placeholder="Search protocols by name, scheme, or description..."
+				class="w-full bg-bg-elevated border border-bg-subtle rounded-lg px-4 py-3 pl-12 text-text-primary placeholder:text-text-tertiary focus:outline-none focus:border-accent/50 focus:ring-2 focus:ring-accent/20 transition-all font-mono text-sm"
+			/>
+			<div
+				class="absolute left-4 top-1/2 -translate-y-1/2 text-text-tertiary"
+			>
+				<Search size={20} stroke-width={2} />
+			</div>
+
+			<div
+				id="search-results-count"
+				class="absolute right-4 top-1/2 -translate-y-1/2 text-xs text-text-tertiary hidden"
+			>
+				<span id="results-number">0</span> found
+			</div>
+		</div>
+	</section>
+
+	<section>
+		<h2
+			class="text-2xl font-bold text-text-primary mb-6 flex items-center gap-3"
+		>
+			<span>Available Protocols</span>
+			<span
+				class="text-sm font-normal text-text-tertiary"
+				id="protocol-count">({protocols.length})</span
+			>
+		</h2>
+
+		<div
+			id="protocol-grid"
+			class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
+		>
+			{protocols.map((protocol) => <ProtocolCard protocol={protocol} />)}
+		</div>
+
+		<div id="no-results" class="hidden text-center py-16">
+			<div class="max-w-md mx-auto space-y-4">
+				<div class="text-6xl opacity-50">🔍</div>
+				<h3 class="text-xl font-bold text-text-primary">
+					No protocols found
+				</h3>
+				<p class="text-text-secondary">
+					Try different keywords or check out our contribution guide
+					to add a new protocol.
+				</p>
+			</div>
+		</div>
+	</section>
+
+	<section class="mt-16 py-12 border-t border-bg-subtle">
+		<div class="text-center max-w-2xl mx-auto space-y-4">
+			<h3 class="text-2xl font-bold text-text-primary">
+				Missing a protocol?
+			</h3>
+			<p class="text-text-secondary">
+				Schemata is open source and community-driven. Add your protocol
+				in minutes by creating a JSON file.
+			</p>
+			<a
+				href="https://github.com/your-org/schemata/blob/main/CONTRIBUTING.md"
+				target="_blank"
+				class="inline-flex items-center gap-2 px-6 py-3 bg-accent hover:bg-accent-hover text-bg-primary font-semibold rounded-lg transition-colors shadow-glow-sm hover:shadow-glow"
+			>
+				<span>Contribute on GitHub</span>
+				<svg
+					class="w-5 h-5"
+					fill="none"
+					stroke="currentColor"
+					viewBox="0 0 24 24"
+				>
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						stroke-width="2"
+						d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+					></path>
+				</svg>
+			</a>
+		</div>
+	</section>
+</Layout>
+
+<script>
+	const searchInput = document.getElementById(
+		"protocol-search",
+	) as HTMLInputElement;
+	const protocolGrid = document.getElementById(
+		"protocol-grid",
+	) as HTMLElement;
+	const noResults = document.getElementById("no-results") as HTMLElement;
+	const protocolCount = document.getElementById(
+		"protocol-count",
+	) as HTMLElement;
+	const resultsCount = document.getElementById(
+		"search-results-count",
+	) as HTMLElement;
+	const resultsNumber = document.getElementById(
+		"results-number",
+	) as HTMLElement;
+
+	const protocolCards = Array.from(protocolGrid.children) as HTMLElement[];
+
+	protocolCards.forEach((card) => {
+		const link = card as HTMLAnchorElement;
+		const name = link.querySelector("h3")?.textContent?.toLowerCase() || "";
+		const description =
+			link.querySelector("p")?.textContent?.toLowerCase() || "";
+		const scheme =
+			link
+				.querySelector("code")
+				?.textContent?.toLowerCase()
+				.replace("://", "") || "";
+
+		card.dataset.searchText = `${name} ${description} ${scheme}`;
+	});
+
+	searchInput?.addEventListener("input", (e) => {
+		const query = (e.target as HTMLInputElement).value.toLowerCase().trim();
+
+		if (!query) {
+			protocolCards.forEach((card) => {
+				card.classList.remove("hidden");
+			});
+			noResults.classList.add("hidden");
+			protocolCount.classList.remove("hidden");
+			resultsCount.classList.add("hidden");
+			return;
+		}
+
+		let visibleCount = 0;
+		protocolCards.forEach((card) => {
+			const searchText = card.dataset.searchText || "";
+			if (searchText.includes(query)) {
+				card.classList.remove("hidden");
+				visibleCount++;
+			} else {
+				card.classList.add("hidden");
+			}
+		});
+
+		if (visibleCount === 0) {
+			noResults.classList.remove("hidden");
+			protocolGrid.classList.add("hidden");
+		} else {
+			noResults.classList.add("hidden");
+			protocolGrid.classList.remove("hidden");
+		}
+
+		protocolCount.classList.add("hidden");
+		resultsCount.classList.remove("hidden");
+		resultsNumber.textContent = visibleCount.toString();
+	});
+
+	document.addEventListener("keydown", (e) => {
+		if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+			e.preventDefault();
+			searchInput?.focus();
+		}
+	});
+</script>

@@ -1,0 +1,70 @@
+{
+    "scheme": "discord",
+    "name": "Discord",
+    "description": "Open Discord channels, servers, user profiles, and voice channels.",
+    "platforms": [
+        "windows",
+        "macos",
+        "linux",
+        "ios",
+        "android"
+    ],
+    "syntax": "discord://[path]",
+    "commands": [
+        {
+            "command": "channels/[guildId]/[channelId]",
+            "description": "Open a specific channel in a server",
+            "parameters": [
+                {
+                    "name": "guildId",
+                    "type": "number",
+                    "required": true,
+                    "description": "Discord Server (Guild) ID",
+                    "example": "123456789012345678"
+                },
+                {
+                    "name": "channelId",
+                    "type": "number",
+                    "required": true,
+                    "description": "Channel ID within the server",
+                    "example": "987654321098765432"
+                }
+            ],
+            "example": "discord://discord.com/channels/123456789012345678/987654321098765432"
+        },
+        {
+            "command": "channels/@me/[channelId]",
+            "description": "Open a direct message conversation",
+            "parameters": [
+                {
+                    "name": "channelId",
+                    "type": "number",
+                    "required": true,
+                    "description": "DM Channel ID",
+                    "example": "123456789012345678"
+                }
+            ],
+            "example": "discord://discord.com/channels/@me/123456789012345678"
+        },
+        {
+            "command": "invite/[code]",
+            "description": "Accept a server invite",
+            "parameters": [
+                {
+                    "name": "code",
+                    "type": "string",
+                    "required": true,
+                    "description": "Invite code (alphanumeric)",
+                    "example": "dTeV4eGW"
+                }
+            ],
+            "example": "discord://discord.com/invite/dTeV4eGW"
+        }
+    ],
+    "metadata": {
+        "lastVerified": "2026-01",
+        "contributors": [
+            "Schemata Team"
+        ]
+    }
+}

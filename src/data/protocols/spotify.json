@@ -1,0 +1,98 @@
+{
+    "scheme": "spotify",
+    "name": "Spotify",
+    "description": "Open songs, albums, playlists, artists, and podcasts in the Spotify app.",
+    "platforms": [
+        "windows",
+        "macos",
+        "linux",
+        "ios",
+        "android"
+    ],
+    "syntax": "spotify:[type]:[id]",
+    "commands": [
+        {
+            "command": "track:[id]",
+            "description": "Play a specific track",
+            "parameters": [
+                {
+                    "name": "id",
+                    "type": "string",
+                    "required": true,
+                    "description": "Spotify Track ID (22 characters)",
+                    "example": "3n3Ppam7vgaVa1iaRUc9Lp"
+                }
+            ],
+            "example": "spotify:track:3n3Ppam7vgaVa1iaRUc9Lp"
+        },
+        {
+            "command": "album:[id]",
+            "description": "Open an album",
+            "parameters": [
+                {
+                    "name": "id",
+                    "type": "string",
+                    "required": true,
+                    "description": "Spotify Album ID",
+                    "example": "6QaVfG1pHYl1z15ZxkvVDW"
+                }
+            ],
+            "example": "spotify:album:6QaVfG1pHYl1z15ZxkvVDW"
+        },
+        {
+            "command": "playlist:[id]",
+            "description": "Open a playlist",
+            "parameters": [
+                {
+                    "name": "id",
+                    "type": "string",
+                    "required": true,
+                    "description": "Spotify Playlist ID",
+                    "example": "37i9dQZF1DXcBWIGoYBM5M"
+                }
+            ],
+            "example": "spotify:playlist:37i9dQZF1DXcBWIGoYBM5M"
+        },
+        {
+            "command": "artist:[id]",
+            "description": "View an artist's page",
+            "parameters": [
+                {
+                    "name": "id",
+                    "type": "string",
+                    "required": true,
+                    "description": "Spotify Artist ID",
+                    "example": "0TnOYISbd1XYRBk9myaseg"
+                }
+            ],
+            "example": "spotify:artist:0TnOYISbd1XYRBk9myaseg"
+        },
+        {
+            "command": "user:[username]:playlist:[id]",
+            "description": "Open a user's playlist (legacy format)",
+            "parameters": [
+                {
+                    "name": "username",
+                    "type": "string",
+                    "required": true,
+                    "description": "Spotify username",
+                    "example": "spotify"
+                },
+                {
+                    "name": "id",
+                    "type": "string",
+                    "required": true,
+                    "description": "Playlist ID",
+                    "example": "37i9dQZF1DXcBWIGoYBM5M"
+                }
+            ],
+            "example": "spotify:user:spotify:playlist:37i9dQZF1DXcBWIGoYBM5M"
+        }
+    ],
+    "metadata": {
+        "lastVerified": "2026-01",
+        "contributors": [
+            "Schemata Team"
+        ]
+    }
+}
