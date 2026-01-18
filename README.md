@@ -2,7 +2,7 @@
 
 > The centralized, open-source database for URI Protocols and Deep Links.
 
-Schemata is a modern web application built to help developers and power users find URI protocols and deep links for various applications. Stop searching scattered documentation—find what you need, fast.
+Schemata is a modern web application built to help developers and power users find URI protocols and deep links for various applications. Stop searching scattered documentation - find what you need, fast.
 
 ## 🚀 Built With
 
