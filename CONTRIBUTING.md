@@ -1,6 +1,6 @@
 # Adding a New Protocol to Schemata
 
-Schemata is designed to be **modular and fast** — adding a new protocol takes less than 5 minutes.
+Schemata is designed to be **modular and fast** - adding a new protocol takes less than 5 minutes.
 
 ## Quick Start
 

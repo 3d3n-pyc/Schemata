@@ -24,7 +24,10 @@ interface Props {
 const { protocol } = Astro.props;
 ---
 
-<Layout title={protocol.name}>
+<Layout
+    title={`${protocol.name} URI Scheme`}
+    description={`Complete documentation for the ${protocol.name} URI scheme (${protocol.scheme}://). ${protocol.description}`}
+>
     <!-- Back Button -->
     <div class="mb-6">
         <a

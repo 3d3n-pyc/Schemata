@@ -1,43 +1,68 @@
-# Astro Starter Kit: Minimal
+# Schemata
 
-```sh
-npm create astro@latest -- --template minimal
-```
+> The centralized, open-source database for URI Protocols and Deep Links.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Schemata is a modern web application built to help developers and power users find URI protocols and deep links for various applications. Stop searching scattered documentation - find what you need, fast.
 
-## 🚀 Project Structure
+## 🚀 Built With
 
-Inside of your Astro project, you'll see the following folders and files:
+-   **[Astro v5](https://astro.build/)** - The web framework for content-driven websites.
+-   **[Tailwind CSS v4](https://tailwindcss.com/)** - A utility-first CSS framework for rapid UI development.
+-   **TypeScript** - For type safety and better developer experience.
+
+## 🛠️ Getting Started
+
+### Prerequisites
+
+-   Node.js (v18 or higher)
+-   npm (v9 or higher)
+
+### Installation
+
+1.  **Clone the repository:**
+
+    ```bash
+    git clone https://github.com/3d3n-pyc/schemata.git
+    cd schemata
+    ```
+
+2.  **Install dependencies:**
+
+    ```bash
+    npm install
+    ```
+
+3.  **Start the development server:**
+
+    ```bash
+    npm run dev
+    ```
+
+    The app should now be running on `http://localhost:4321`.
+
+## 📂 Project Structure
+
+The core data for this project lives in `src/data/protocols`.
 
 ```text
 /
-├── public/
 ├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+│   ├── data/
+│   │   └── protocols/    <-- Protocol JSON definitions live here
+│   ├── pages/            <-- Application routes
+│   └── utils/            <-- Helper functions
+└── ...
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## 🤝 Contributing
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+We welcome contributions! If you know a protocol that isn't listed, you can add it easily.
 
-Any static assets, like images, can be placed in the `public/` directory.
+1.  Create a new JSON file in `src/data/protocols/` with the protocol name (e.g., `myapp.json`).
+2.  Follow the schema defined in `src/types/protocol.ts`.
 
-## 🧞 Commands
+For detailed instructions, please read our [Contributing Guide](CONTRIBUTING.md).
 
-All commands are run from the root of the project, from a terminal:
+## 📄 License
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+This project is open source and available under the [MIT License](LICENSE).

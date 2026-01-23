@@ -10,7 +10,10 @@ const protocols = getAllProtocols().sort((a, b) =>
 const totalCommands = protocols.reduce((sum, p) => sum + p.commands.length, 0);
 ---
 
-<Layout title="Protocol Database">
+<Layout
+	title="Protocol Database"
+	description="The centralized, open-source database for URI Protocols and Deep Links. Find scheme:// URL formats for popular apps."
+>
 	<section class="py-12 space-y-6">
 		<div class="max-w-3xl">
 			<div class="flex items-center gap-2 mb-4">
@@ -20,7 +23,7 @@ const totalCommands = protocols.reduce((sum, p) => sum + p.commands.length, 0);
 
 			<p class="text-xl text-text-secondary leading-relaxed">
 				The centralized, open-source database for URI Protocols and Deep
-				Links. Stop searching scattered docs—find what you need, fast.
+				Links. Stop searching scattered docs - find what you need, fast.
 			</p>
 
 			<div class="flex items-center gap-6 mt-6 text-sm">
@@ -123,7 +126,7 @@ const totalCommands = protocols.reduce((sum, p) => sum + p.commands.length, 0);
 				in minutes by creating a JSON file.
 			</p>
 			<a
-				href="https://github.com/3d3n-pyc/schemata/blob/main/CONTRIBUTING.md"
+				href="https://github.com/3d3n-pyc/schemata/blob/master/CONTRIBUTING.md"
 				target="_blank"
 				class="inline-flex items-center gap-2 px-6 py-3 bg-accent hover:bg-accent-hover text-bg-primary font-semibold rounded-lg transition-colors shadow-glow-sm hover:shadow-glow"
 			>
