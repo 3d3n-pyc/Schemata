@@ -1,7 +1,7 @@
 {
     "scheme": "discord",
     "name": "Discord",
-    "description": "Open Discord channels, servers, user profiles, and voice channels.",
+    "description": "Open Discord channels, servers, user profiles, settings, and more.",
     "platforms": [
         "windows",
         "macos",
@@ -12,57 +12,572 @@
     "syntax": "discord://[path]",
     "commands": [
         {
-            "command": "channels/[guildId]/[channelId]",
-            "description": "Open a specific channel in a server",
-            "parameters": [
-                {
-                    "name": "guildId",
-                    "type": "number",
-                    "required": true,
-                    "description": "Discord Server (Guild) ID",
-                    "example": "123456789012345678"
-                },
-                {
-                    "name": "channelId",
-                    "type": "number",
-                    "required": true,
-                    "description": "Channel ID within the server",
-                    "example": "987654321098765432"
-                }
-            ],
-            "example": "discord://discord.com/channels/123456789012345678/987654321098765432"
+            "command": "-/",
+            "description": "Go to Home",
+            "parameters": [],
+            "example": "discord://-/"
         },
         {
-            "command": "channels/@me/[channelId]",
-            "description": "Open a direct message conversation",
-            "parameters": [
-                {
-                    "name": "channelId",
-                    "type": "number",
-                    "required": true,
-                    "description": "DM Channel ID",
-                    "example": "123456789012345678"
-                }
-            ],
-            "example": "discord://discord.com/channels/@me/123456789012345678"
+            "command": "-/channels/@me/",
+            "description": "Go to Friends / DM List",
+            "parameters": [],
+            "example": "discord://-/channels/@me/"
         },
         {
-            "command": "invite/[code]",
-            "description": "Accept a server invite",
+            "command": "-/store",
+            "description": "Go to Nitro Store",
+            "parameters": [],
+            "example": "discord://-/store"
+        },
+        {
+            "command": "-/shop",
+            "description": "Go to Shop",
+            "parameters": [],
+            "example": "discord://-/shop"
+        },
+        {
+            "command": "-/message-requests",
+            "description": "Go to Message Requests",
+            "parameters": [],
+            "example": "discord://-/message-requests"
+        },
+        {
+            "command": "-/family-center",
+            "description": "Go to Family Center",
+            "parameters": [],
+            "example": "discord://-/family-center"
+        },
+        {
+            "command": "-/apps",
+            "description": "Go to Apps",
+            "parameters": [],
+            "example": "discord://-/apps"
+        },
+        {
+            "command": "-/guild-discovery",
+            "description": "Go to Guild Discovery",
+            "parameters": [],
+            "example": "discord://-/guild-discovery"
+        },
+        {
+            "command": "-/developer",
+            "description": "Go to Developer Portal",
+            "parameters": [],
+            "example": "discord://-/developer"
+        },
+        {
+            "command": "-/gifts/[code]",
+            "description": "View Gift",
             "parameters": [
                 {
                     "name": "code",
                     "type": "string",
                     "required": true,
-                    "description": "Invite code (alphanumeric)",
+                    "description": "Gift Code",
+                    "example": "Udzw34..."
+                }
+            ],
+            "example": "discord://-/gifts/Udzw34..."
+        },
+        {
+            "command": "-/gifts/[code]/login",
+            "description": "View Gift (with Login)",
+            "parameters": [
+                {
+                    "name": "code",
+                    "type": "string",
+                    "required": true,
+                    "description": "Gift Code",
+                    "example": "Udzw34..."
+                }
+            ],
+            "example": "discord://-/gifts/Udzw34.../login"
+        },
+        {
+            "command": "-/guilds/create",
+            "description": "Create a New Server",
+            "parameters": [],
+            "example": "discord://-/guilds/create"
+        },
+        {
+            "command": "-/invite/[code]",
+            "description": "Accept Server Invite",
+            "parameters": [
+                {
+                    "name": "code",
+                    "type": "string",
+                    "required": true,
+                    "description": "Invite Code",
                     "example": "dTeV4eGW"
                 }
             ],
-            "example": "discord://discord.com/invite/dTeV4eGW"
+            "example": "discord://-/invite/dTeV4eGW"
+        },
+        {
+            "command": "-/invite/[code]/login",
+            "description": "Accept Server Invite (with Login)",
+            "parameters": [
+                {
+                    "name": "code",
+                    "type": "string",
+                    "required": true,
+                    "description": "Invite Code",
+                    "example": "dTeV4eGW"
+                }
+            ],
+            "example": "discord://-/invite/dTeV4eGW/login"
+        },
+        {
+            "command": "-/settings/[setting]",
+            "description": "Go to User Settings",
+            "parameters": [
+                {
+                    "name": "setting",
+                    "type": "enum",
+                    "required": true,
+                    "description": "Setting Page",
+                    "values": [
+                        "account",
+                        "profile-customization",
+                        "privacy-and-safety",
+                        "family-center",
+                        "authorized-apps",
+                        "connections",
+                        "sessions",
+                        "friend-requests",
+                        "premium",
+                        "guild-boosting",
+                        "subscriptions",
+                        "inventory",
+                        "billing",
+                        "appearance",
+                        "accessibility",
+                        "voice",
+                        "text",
+                        "notifications",
+                        "keybinds",
+                        "locale",
+                        "windows",
+                        "linux",
+                        "streamer-mode",
+                        "advanced",
+                        "activity-privacy",
+                        "registered-games",
+                        "overlay",
+                        "hypesquad-online",
+                        "changelogs",
+                        "experiments",
+                        "developer-options",
+                        "hotspot-options",
+                        "dismissible-content-options"
+                    ],
+                    "example": "account"
+                }
+            ],
+            "example": "discord://-/settings/account"
+        },
+        {
+            "command": "-/guilds/[guildId]/settings/[category]",
+            "description": "Go to Guild Settings",
+            "parameters": [
+                {
+                    "name": "guildId",
+                    "type": "string",
+                    "required": true,
+                    "description": "Guild ID",
+                    "example": "123456789012345678"
+                },
+                {
+                    "name": "category",
+                    "type": "enum",
+                    "required": true,
+                    "description": "Settings Category",
+                    "values": [
+                        "overview",
+                        "roles",
+                        "emoji",
+                        "stickers",
+                        "widget",
+                        "guild-templates",
+                        "soundboard",
+                        "vanity-url",
+                        "integrations",
+                        "app-directory",
+                        "safety",
+                        "audit-log",
+                        "bans",
+                        "community",
+                        "onboarding",
+                        "analytics",
+                        "partner",
+                        "discovery",
+                        "discovery-landing-page",
+                        "community-welcome",
+                        "role-subscriptions",
+                        "guild-premium",
+                        "members",
+                        "instant-invites",
+                        "delete"
+                    ],
+                    "example": "overview"
+                }
+            ],
+            "example": "discord://-/guilds/123456789012345678/settings/overview"
+        },
+        {
+            "command": "-/users/[userId]",
+            "description": "View User Profile",
+            "parameters": [
+                {
+                    "name": "userId",
+                    "type": "string",
+                    "required": true,
+                    "description": "User ID",
+                    "example": "123456789012345678"
+                }
+            ],
+            "example": "discord://-/users/123456789012345678"
+        },
+        {
+            "command": "-/channels/@me/[channelId]",
+            "description": "Open DM Channel",
+            "parameters": [
+                {
+                    "name": "channelId",
+                    "type": "string",
+                    "required": true,
+                    "description": "DM Channel ID",
+                    "example": "123456789012345678"
+                }
+            ],
+            "example": "discord://-/channels/@me/123456789012345678"
+        },
+        {
+            "command": "-/channels/@me/[channelId]/[messageId]",
+            "description": "Go to DM Message",
+            "parameters": [
+                {
+                    "name": "channelId",
+                    "type": "string",
+                    "required": true,
+                    "description": "DM Channel ID",
+                    "example": "123456789012345678"
+                },
+                {
+                    "name": "messageId",
+                    "type": "string",
+                    "required": true,
+                    "description": "Message ID",
+                    "example": "123456789012345678"
+                }
+            ],
+            "example": "discord://-/channels/@me/123456789012345678/123456789012345678"
+        },
+        {
+            "command": "-/channels/@favorites",
+            "description": "Go to Favorites",
+            "parameters": [],
+            "example": "discord://-/channels/@favorites"
+        },
+        {
+            "command": "-/channels/@favorites/[channelId]",
+            "description": "Go to Favorite Channel",
+            "parameters": [
+                {
+                    "name": "channelId",
+                    "type": "string",
+                    "required": true,
+                    "description": "Channel ID",
+                    "example": "123456789012345678"
+                }
+            ],
+            "example": "discord://-/channels/@favorites/123456789012345678"
+        },
+        {
+            "command": "-/channels/[guildId]",
+            "description": "Go to Guild",
+            "parameters": [
+                {
+                    "name": "guildId",
+                    "type": "string",
+                    "required": true,
+                    "description": "Guild ID",
+                    "example": "123456789012345678"
+                }
+            ],
+            "example": "discord://-/channels/123456789012345678"
+        },
+        {
+            "command": "-/channels/[guildId]/[channelId]",
+            "description": "Go to Guild Channel",
+            "parameters": [
+                {
+                    "name": "guildId",
+                    "type": "string",
+                    "required": true,
+                    "description": "Guild ID",
+                    "example": "123456789012345678"
+                },
+                {
+                    "name": "channelId",
+                    "type": "string",
+                    "required": true,
+                    "description": "Channel ID",
+                    "example": "123456789012345678"
+                }
+            ],
+            "example": "discord://-/channels/123456789012345678/123456789012345678"
+        },
+        {
+            "command": "channels/[guildId]/channel-browser",
+            "description": "Go to Guild Channel Browser",
+            "parameters": [
+                {
+                    "name": "guildId",
+                    "type": "string",
+                    "required": true,
+                    "description": "Guild ID",
+                    "example": "123456789012345678"
+                }
+            ],
+            "example": "discord://channels/123456789012345678/channel-browser"
+        },
+        {
+            "command": "channels/[guildId]/customize-community",
+            "description": "Go to Guild Customization (Onboarding)",
+            "parameters": [
+                {
+                    "name": "guildId",
+                    "type": "string",
+                    "required": true,
+                    "description": "Guild ID",
+                    "example": "123456789012345678"
+                }
+            ],
+            "example": "discord://channels/123456789012345678/customize-community"
+        },
+        {
+            "command": "-/channels/[guildId]/@home",
+            "description": "Go to Guild Server Guide",
+            "parameters": [
+                {
+                    "name": "guildId",
+                    "type": "string",
+                    "required": true,
+                    "description": "Guild ID",
+                    "example": "123456789012345678"
+                }
+            ],
+            "example": "discord://-/channels/123456789012345678/@home"
+        },
+        {
+            "command": "-/events/[guildId]/[eventId]",
+            "description": "Go to Guild Event",
+            "parameters": [
+                {
+                    "name": "guildId",
+                    "type": "string",
+                    "required": true,
+                    "description": "Guild ID",
+                    "example": "123456789012345678"
+                },
+                {
+                    "name": "eventId",
+                    "type": "string",
+                    "required": true,
+                    "description": "Event ID",
+                    "example": "123456789012345678"
+                }
+            ],
+            "example": "discord://-/events/123456789012345678/123456789012345678"
+        },
+        {
+            "command": "-/channels/[guildId]/[channelId]/[messageId]",
+            "description": "Go to Guild Message",
+            "parameters": [
+                {
+                    "name": "guildId",
+                    "type": "string",
+                    "required": true,
+                    "description": "Guild ID",
+                    "example": "123456789012345678"
+                },
+                {
+                    "name": "channelId",
+                    "type": "string",
+                    "required": true,
+                    "description": "Channel ID",
+                    "example": "123456789012345678"
+                },
+                {
+                    "name": "messageId",
+                    "type": "string",
+                    "required": true,
+                    "description": "Message ID",
+                    "example": "123456789012345678"
+                }
+            ],
+            "example": "discord://-/channels/123456789012345678/123456789012345678/123456789012345678"
+        },
+        {
+            "command": "-/channels/[guildId]/member-safety",
+            "description": "Go to Guild Member Safety",
+            "parameters": [
+                {
+                    "name": "guildId",
+                    "type": "string",
+                    "required": true,
+                    "description": "Guild ID",
+                    "example": "123456789012345678"
+                }
+            ],
+            "example": "discord://-/channels/123456789012345678/member-safety"
+        },
+        {
+            "command": "-/member-verification/[guildId]",
+            "description": "Go to Guild Membership Screening",
+            "parameters": [
+                {
+                    "name": "guildId",
+                    "type": "string",
+                    "required": true,
+                    "description": "Guild ID",
+                    "example": "123456789012345678"
+                }
+            ],
+            "example": "discord://-/member-verification/123456789012345678"
+        },
+        {
+            "command": "-/channels/[guildId]/role-subscriptions",
+            "description": "Go to Guild Role Subscriptions",
+            "parameters": [
+                {
+                    "name": "guildId",
+                    "type": "string",
+                    "required": true,
+                    "description": "Guild ID",
+                    "example": "123456789012345678"
+                }
+            ],
+            "example": "discord://-/channels/123456789012345678/role-subscriptions"
+        },
+        {
+            "command": "-/member-verification-for-hub/[hubId]",
+            "description": "Go to Hub Membership Screening",
+            "parameters": [
+                {
+                    "name": "hubId",
+                    "type": "string",
+                    "required": true,
+                    "description": "Hub ID",
+                    "example": "123456789012345678"
+                }
+            ],
+            "example": "discord://-/member-verification-for-hub/123456789012345678"
+        },
+        {
+            "command": "-/library/",
+            "description": "Go to Library",
+            "parameters": [],
+            "example": "discord://-/library/"
+        },
+        {
+            "command": "-/library/inventory",
+            "description": "Go to Library Inventory",
+            "parameters": [],
+            "example": "discord://-/library/inventory"
+        },
+        {
+            "command": "-/library/[skuId]/launch",
+            "description": "Launch Game from Library",
+            "parameters": [
+                {
+                    "name": "skuId",
+                    "type": "string",
+                    "required": true,
+                    "description": "SKU ID",
+                    "example": "123456789012345678"
+                }
+            ],
+            "example": "discord://-/library/123456789012345678/launch"
+        },
+        {
+            "command": "-/library/settings/",
+            "description": "Go to Library Settings",
+            "parameters": [],
+            "example": "discord://-/library/settings/"
+        },
+        {
+            "command": "-/store/skus/[skuId]",
+            "description": "Go to Store SKU Page",
+            "parameters": [
+                {
+                    "name": "skuId",
+                    "type": "string",
+                    "required": true,
+                    "description": "SKU ID",
+                    "example": "123456789012345678"
+                }
+            ],
+            "example": "discord://-/store/skus/123456789012345678"
+        },
+        {
+            "command": "-/store/applications/[applicationId]",
+            "description": "Go to Store Application Page",
+            "parameters": [
+                {
+                    "name": "applicationId",
+                    "type": "string",
+                    "required": true,
+                    "description": "Application ID",
+                    "example": "123456789012345678"
+                }
+            ],
+            "example": "discord://-/store/applications/123456789012345678"
+        },
+        {
+            "command": "-/login",
+            "description": "Login Screen",
+            "parameters": [
+                {
+                    "name": "redirect_to",
+                    "type": "string",
+                    "required": false,
+                    "description": "Redirect URL after login",
+                    "example": "..."
+                }
+            ],
+            "example": "discord://-/login?redirect_to=..."
+        },
+        {
+            "command": "-/register",
+            "description": "Register Screen",
+            "parameters": [
+                {
+                    "name": "redirect_to",
+                    "type": "string",
+                    "required": false,
+                    "description": "Redirect URL after registration",
+                    "example": "..."
+                }
+            ],
+            "example": "discord://-/register?redirect_to=..."
+        },
+        {
+            "command": "-/reset",
+            "description": "Password Reset",
+            "parameters": [],
+            "example": "discord://-/reset"
+        },
+        {
+            "command": "-/restore",
+            "description": "Account Restore",
+            "parameters": [],
+            "example": "discord://-/restore"
         }
     ],
     "metadata": {
-        "lastVerified": "2026-01",
+        "lastVerified": "2026-02",
         "contributors": [
             "Schemata Team"
         ]
