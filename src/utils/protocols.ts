@@ -21,6 +21,9 @@ export function getProtocolsByPlatform(platform: Protocol['platforms'][number]):
 
 
 export function searchProtocols(query: string): Protocol[] {
+    if (!query)
+        return getAllProtocols();
+
     const lowerQuery = query.toLowerCase();
     return getAllProtocols().filter(p =>
         p.name.toLowerCase().includes(lowerQuery) ||
